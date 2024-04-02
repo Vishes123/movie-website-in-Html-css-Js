@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+
+.overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #FF416C, #FF4B2B);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.overlay-panel {
+  position: relative;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+.overlay-right {
+  transform: translateX(20%);
+}
+
+.overlay-panel h1 {
+  font-size: 2em;
+}
+
+.overlay-panel p {
+  font-size: 1.2em;
+}
+
+.overlay-panel button.ghost {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.forget-link {
+  cursor: pointer;
+  color: #555;
+}
+
+.forget-link:hover {
+  text-decoration: underline;
+}
+</style>
+<body>
+  <div class="container">
+    <div class="form-container sign-in-container">
+      <form>
+        <h1>Sign In</h1>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button>Sign In</button>
+      </form>
+      <a href="#" class="forget-link" onclick="openForgetModal()">Forgot your password?</a>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome Back!</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button class="ghost" id="signUp">Sign Up</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-container sign-up-container">
+      <form>
+        <h1>Sign Up</h1>
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button>Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="forgetModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeForgetModal()">&times;</span>
+      <h2>Forget Password</h2>
+      <p>Enter your email to reset your password.</p>
+      <input type="email" placeholder="Email" required>
+      <button onclick="resetPassword()">Reset Password</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+<script>
+  const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.querySelector('.container');
+const forgetModal = document.getElementById('forgetModal');
+
+signUpButton.addEventListener('click', () => {
+  container.classList.add('right-panel-active');
+});
+
+signInButton.addEventListener('click', () => {
+  container.classList.remove('right-panel-active');
+});
+
+function openForgetModal() {
+  forgetModal.style.display = 'block';
+}
+
+function closeForgetModal() {
+  forgetModal.style.display = 'none';
+}
+
+function resetPassword() {
+  const email = document.querySelector('#forgetModal input[type="email"]').value;
+  // In a real-world scenario, you would send a request to a server to handle password reset logic.
+  // For the sake of this example, let's just show an alert indicating the email has been sent.
+  alert('Password reset email sent to ' + email);
+  closeForgetModal();
+}
+</script>
+</html>
